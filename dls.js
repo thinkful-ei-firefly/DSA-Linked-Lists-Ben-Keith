@@ -13,21 +13,19 @@ class DoubleLinkedList {
   }
   insertFirst(item) {
     this.head = new _Node(item, this.head);
-    if (this.head.next !== null)
+    if (this.head.next !== null){
       this.head.next.prev = this.head
+    } else {
+      this.tail = this.head
+    }
   }
   insertLast(item) {
     if (this.head === null) {
       this.insertFirst(item);
     } else {
-      let tempNode = this.head;
-      let prevNode = this.head;
-      while (tempNode.next !== null) {
-        prevNode = tempNode;
-        tempNode = tempNode.next;
-      }
-      tempNode.next = new _Node(item, null, prevNode);
-
+      let tempNode = new _Node(item, null, this.tail)
+      this.tail.next = tempNode
+      this.tail = tempNode
     }
   }
   find(item) {

@@ -1,25 +1,26 @@
-const LinkedList = require('./linked-list');
-const DoubleLinkedList = require('./dls');
+const LinkedList = require("./linked-list");
+const DoubleLinkedList = require("./dls");
 
 function main() {
   const SLL = new LinkedList();
-  const insertItems = ['Apollo', 'Boomer', 'Helo', 'Husker', 'Starbuck'];
+  const insertItems = ["Apollo", "Boomer", "Helo", "Husker", "Starbuck"];
   insertItems.forEach(item => SLL.insertLast(item));
-  SLL.insertLast('Tauhida');
+  SLL.insertLast("Tauhida");
   //SLL.remove('squirrel');
-  SLL.insertBefore('Artemis', 'Boomer');
-  SLL.insertBefore('Athena', 'Boomer');
-  SLL.insertAfter('Hot Dog', 'Helo');
-  SLL.insertAt('Kat', 3);
-  SLL.remove('Tauhida');
+  SLL.insertBefore("Artemis", "Boomer");
+  SLL.insertBefore("Athena", "Boomer");
+  SLL.insertAfter("Hot Dog", "Helo");
+  SLL.insertAt("Kat", 3);
+  SLL.remove("Tauhida");
   return SLL;
 }
 
 function display(lst) {
   let curr = lst.head;
 
-  while (curr !== null) {
-    console.log(curr.value);
+  while (curr) {
+    //console.log(curr.value);
+    displayNode(curr)
     curr = curr.next;
   }
 }
@@ -44,7 +45,7 @@ function findPrevious(lst, key) {
   let node = lst.head;
   let prev = lst.head;
   if (prev.value === key) {
-    return 'Key is first in list';
+    return "Key is first in list";
   }
   node = node.next;
   while (node.value !== key) {
@@ -55,7 +56,7 @@ function findPrevious(lst, key) {
 }
 function findLast(lst) {
   if (isEmpty(list)) {
-    return 'Empty list';
+    return "Empty list";
   }
   let node = lst.head;
   while (node.next !== null) {
@@ -119,7 +120,7 @@ function reverseList(lst) {
 function threeFromEnd(lst) {
   let node = lst.head;
   if (node.next.next === null) {
-    return 'list too short';
+    return "list too short";
   }
   while (node.next.next.next !== null) {
     node = node.next;
@@ -133,7 +134,7 @@ function middle(lst) {
   let double = lst.head;
   while (double.next !== null) {
     if (double.next.next === null) {
-      return 'even list has no middle';
+      return "even list has no middle";
     }
     node = node.next;
     double = double.next.next;
@@ -146,15 +147,15 @@ function middle(lst) {
 
 function makeCycle() {
   const SLL = new LinkedList();
-  const insertItems = ['Apollo', 'Boomer', 'Helo', 'Husker', 'Starbuck'];
+  const insertItems = ["Apollo", "Boomer", "Helo", "Husker", "Starbuck"];
   insertItems.forEach(item => SLL.insertLast(item));
-  SLL.insertLast('Tauhida');
-  SLL.insertBefore('Artemis', 'Boomer');
-  SLL.insertBefore('Athena', 'Boomer');
-  SLL.insertAfter('Hot Dog', 'Helo');
-  SLL.insertAt('Kat', 3);
-  const found1 = SLL.find('Starbuck');
-  const found2 = SLL.find('Boomer');
+  SLL.insertLast("Tauhida");
+  SLL.insertBefore("Artemis", "Boomer");
+  SLL.insertBefore("Athena", "Boomer");
+  SLL.insertAfter("Hot Dog", "Helo");
+  SLL.insertAt("Kat", 3);
+  const found1 = SLL.find("Starbuck");
+  const found2 = SLL.find("Boomer");
   found1.next = found2;
   return SLL;
 }
@@ -177,7 +178,7 @@ function cycleList(lst) {
 
 function makeDLS() {
   const DLL = new DoubleLinkedList();
-  const insertItems = ['Aquaria', 'Caprica', 'Gemenon', 'Picon', 'Sagittaron'];
+  const insertItems = ["Aquaria", "Caprica", "Gemenon", "Picon", "Sagittaron"];
   insertItems.forEach(item => DLL.insertLast(item));
   // DLL.insertAfter('Tauron', 'Gemenon');
   // DLL.remove('Picon');
@@ -190,29 +191,34 @@ let doubleList = makeDLS();
 
 function reverseDLL(lst) {
   let curr = lst.head;
-  let next = curr.next;
-  let prev = null;
+  let temp = null;
   lst.tail = curr;
   while (curr !== null) {
-    // curr = Gemenon
-    prev = curr.prev; // Caprica
-    next = curr.next; // Picon
-    curr.next = prev; // Gem.next => Caprica
-    curr.prev = next; // Gem.prev => Picon
-    console.log(curr); // Gem
-    curr = curr.prev; // curr => Picon
+
+    //displayNode(curr)
+
+    temp = curr.prev; 
+    curr.prev = curr.next;
+    curr.next = temp;
+
+    //displayNode(curr)
+    temp = curr
+    curr = curr.prev;
+    
   }
-  lst.head = prev;
+  lst.head = temp;
+
 }
 
-// head = 1    =  2    = 3 = 4 = tail
-// prev = curr =  next
-
+//display(doubleList);
 reverseDLL(doubleList);
-// display(doubleList);
+display(doubleList);
 
-// Aquaria
-// Caprica
-// Gemenon
-// Picon
-// Sagittaron
+
+function displayNode(node) {
+  console.log({ 
+    value: node && node.value,
+    prev: node && node.prev && node.prev.value,
+    next: node&& node.next && node.next.value
+   });
+}
