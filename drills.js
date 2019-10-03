@@ -1,4 +1,5 @@
 const LinkedList = require('./linked-list');
+const DoubleLinkedList = require('./dls')
 
 function main() {
   const SLL = new LinkedList();
@@ -171,5 +172,19 @@ function cycleList(lst) {
   return false;
 }
 
-console.log(cycleList(CycleList)); // returns true
-console.log(cycleList(list)); // returns false
+//console.log(cycleList(CycleList)); // returns true
+//console.log(cycleList(list)); // returns false
+
+
+function makeDLS() {
+  const DLL = new DoubleLinkedList();
+  const insertItems = ['Aquaria', 'Caprica', 'Gemenon', 'Picon', 'Sagittaron'];
+  insertItems.forEach(item => DLL.insertLast(item));
+  DLL.insertAfter('Tauron', 'Gemenon')
+  DLL.remove('Picon')
+
+  return DLL;
+}
+let doubleList = makeDLS();
+
+display(doubleList)
