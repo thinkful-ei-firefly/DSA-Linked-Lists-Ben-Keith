@@ -6,7 +6,7 @@ function main() {
   insertItems.forEach(item => SLL.insertLast(item));
   SLL.insertLast('Tauhida');
   //SLL.remove('squirrel');
-  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertBefore('Artemis', 'Boomer');
   SLL.insertBefore('Athena', 'Boomer');
   SLL.insertAfter('Hot Dog', 'Helo');
   SLL.insertAt('Kat', 3);
@@ -14,8 +14,8 @@ function main() {
   return SLL;
 }
 
-function display(lls) {
-  let curr = lls.head;
+function display(lst) {
+  let curr = lst.head;
 
   while (curr !== null) {
     console.log(curr.value);
@@ -23,8 +23,8 @@ function display(lls) {
   }
 }
 
-function size(lls) {
-  let node = lls.head;
+function size(lst) {
+  let node = lst.head;
   let i = 1;
   while (node.next !== null) {
     i++;
@@ -33,15 +33,15 @@ function size(lls) {
   return i;
 }
 
-function isEmpty(lls) {
-  if (lls.head.next === null) {
+function isEmpty(lst) {
+  if (lst.head.next === null) {
     return true;
   } else return false;
 }
 
-function findPrevious(lls, key) {
-  let node = lls.head;
-  let prev = lls.head;
+function findPrevious(lst, key) {
+  let node = lst.head;
+  let prev = lst.head;
   if (prev.value === key) {
     return 'Key is first in list';
   }
@@ -52,11 +52,11 @@ function findPrevious(lls, key) {
   }
   return prev.value;
 }
-function findLast(lls) {
+function findLast(lst) {
   if (isEmpty(list)) {
     return 'Empty list';
   }
-  let node = lls.head;
+  let node = lst.head;
   while (node.next !== null) {
     node = node.next;
   }
@@ -112,5 +112,32 @@ function reverseList(lst) {
   lst.head = curr;
 }
 
-reverseList(list);
-display(list);
+//reverseList(list);
+//display(list);
+
+function threeFromEnd(lst){
+  let node = lst.head
+  if(node.next.next === null){
+    return 'list too short'
+  }
+  while (node.next.next.next !== null){
+    node = node.next
+  }
+  return node
+}
+//console.log(threeFromEnd(list))
+
+function middle(lst){
+  let node = lst.head
+  let double = lst.head
+  while (double.next !== null){
+    if (double.next.next === null){
+      return 'even list has no middle'
+    }
+    node = node.next
+    double = double.next.next
+  }
+  return node
+}
+display(list)
+console.log(middle(list))
