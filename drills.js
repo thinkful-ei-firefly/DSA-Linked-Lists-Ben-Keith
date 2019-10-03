@@ -1,5 +1,5 @@
 const LinkedList = require('./linked-list');
-const DoubleLinkedList = require('./dls')
+const DoubleLinkedList = require('./dls');
 
 function main() {
   const SLL = new LinkedList();
@@ -175,16 +175,44 @@ function cycleList(lst) {
 //console.log(cycleList(CycleList)); // returns true
 //console.log(cycleList(list)); // returns false
 
-
 function makeDLS() {
   const DLL = new DoubleLinkedList();
   const insertItems = ['Aquaria', 'Caprica', 'Gemenon', 'Picon', 'Sagittaron'];
   insertItems.forEach(item => DLL.insertLast(item));
-  DLL.insertAfter('Tauron', 'Gemenon')
-  DLL.remove('Picon')
+  // DLL.insertAfter('Tauron', 'Gemenon');
+  // DLL.remove('Picon');
 
   return DLL;
 }
 let doubleList = makeDLS();
 
-display(doubleList)
+// display(doubleList);
+
+function reverseDLL(lst) {
+  let curr = lst.head;
+  let next = curr.next;
+  let prev = null;
+  lst.tail = curr;
+  while (curr !== null) {
+    // curr = Gemenon
+    prev = curr.prev; // Caprica
+    next = curr.next; // Picon
+    curr.next = prev; // Gem.next => Caprica
+    curr.prev = next; // Gem.prev => Picon
+    console.log(curr); // Gem
+    curr = curr.prev; // curr => Picon
+  }
+  lst.head = prev;
+}
+
+// head = 1    =  2    = 3 = 4 = tail
+// prev = curr =  next
+
+reverseDLL(doubleList);
+// display(doubleList);
+
+// Aquaria
+// Caprica
+// Gemenon
+// Picon
+// Sagittaron
