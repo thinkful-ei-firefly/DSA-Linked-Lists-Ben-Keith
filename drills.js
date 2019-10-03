@@ -115,29 +115,61 @@ function reverseList(lst) {
 //reverseList(list);
 //display(list);
 
-function threeFromEnd(lst){
-  let node = lst.head
-  if(node.next.next === null){
-    return 'list too short'
+function threeFromEnd(lst) {
+  let node = lst.head;
+  if (node.next.next === null) {
+    return 'list too short';
   }
-  while (node.next.next.next !== null){
-    node = node.next
+  while (node.next.next.next !== null) {
+    node = node.next;
   }
-  return node
+  return node;
 }
 //console.log(threeFromEnd(list))
 
-function middle(lst){
-  let node = lst.head
-  let double = lst.head
-  while (double.next !== null){
-    if (double.next.next === null){
-      return 'even list has no middle'
+function middle(lst) {
+  let node = lst.head;
+  let double = lst.head;
+  while (double.next !== null) {
+    if (double.next.next === null) {
+      return 'even list has no middle';
     }
-    node = node.next
-    double = double.next.next
+    node = node.next;
+    double = double.next.next;
   }
-  return node
+  return node;
 }
-display(list)
-console.log(middle(list))
+
+// display(list);
+// console.log(middle(list));
+
+function makeCycle() {
+  const SLL = new LinkedList();
+  const insertItems = ['Apollo', 'Boomer', 'Helo', 'Husker', 'Starbuck'];
+  insertItems.forEach(item => SLL.insertLast(item));
+  SLL.insertLast('Tauhida');
+  SLL.insertBefore('Artemis', 'Boomer');
+  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertAfter('Hot Dog', 'Helo');
+  SLL.insertAt('Kat', 3);
+  const found1 = SLL.find('Starbuck');
+  const found2 = SLL.find('Boomer');
+  found1.next = found2;
+  return SLL;
+}
+
+const CycleList = makeCycle();
+
+function cycleList(lst) {
+  let arr = [];
+  let curr = lst.head;
+  while (curr.next !== null) {
+    if (arr.includes(curr)) return true;
+    arr.push(curr);
+    curr = curr.next;
+  }
+  return false;
+}
+
+console.log(cycleList(CycleList)); // returns true
+console.log(cycleList(list)); // returns false
